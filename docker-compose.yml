@@ -2,6 +2,9 @@ version: "3"
 
 services:
   rails:
-    image: ruby:3.0.0
+    build: 
+      context: .
+      dockerfile: ./docker/local/rails/Dockerfile
+    image: store_app:0.1.0
     volumes:
-      - .:/
+      - .:/app
