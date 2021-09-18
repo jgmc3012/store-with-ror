@@ -5,22 +5,20 @@ RSpec.describe V1::UsersController, type: :controller do
       {
         email: Faker::Internet.email,
         password: Faker::Internet.password,
-        birthdate: Faker::Date.birthday(min_age: 18, max_age: 65),
+        birthdate: "200-01-01",
       }
     end
     context "successful" do
       before do
-        post(:create, params: { user: user_params })
+        post(:create, params: user_params)
       end
       context "status code is created" do
-        subject { response.status }
-        it { is_expected.to eq(:created) }
+        subject { response }
+        it { is_expected.to have_http_status(:created) }
       end
       context "validate response body" do
-		subject { payload_test }
-		it { is_expected.to include(:id) }
-		it { is_expected.to include(:email => user_params[:email]) }
-		it { is_expected.to include(:birthdate => user_params[:birthdate]) }
+        subject { payload_test }
+        it { is_expected.to include(:id, :email, :birthdate) }
       end
     end
   end
