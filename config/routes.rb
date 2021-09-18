@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  get 'home/grettings'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   scope '(:locale)', locale: /en|es/ do
-    
+    get 'home/grettings'
+    namespace :v1, defaults: { format: 'json' } do
+      resources :users, only: [:create]
+    end
   end
 end
