@@ -3,8 +3,9 @@ module V1
     def create
       begin
         user = Owner.create!(user_params)
-      rescue ActiveRecord::RecordInvalid
+      rescue ActiveRecord::RecordInvalid, ActionController::ParameterMissing
         render json: { error: 'Invalid user' }, status: :bad_request
+        return
       end
       render json: user, status: :created
     end

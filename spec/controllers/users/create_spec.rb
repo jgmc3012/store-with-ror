@@ -1,25 +1,38 @@
-require "rails_helper"
+require 'rails_helper'
 RSpec.describe V1::UsersController, type: :controller do
-  describe "User register" do
-    let(:user_params) do
-      {
-        email: Faker::Internet.email,
-        password: Faker::Internet.password,
-        birthdate: "200-01-01",
-      }
-    end
-    context "successful" do
-      before do
-        post(:create, params: user_params)
+  describe 'User register' do
+    context 'successful' do
+      let(:user_params) do
+        {
+          email: Faker::Internet.email,
+          password: Faker::Internet.password,
+          birthdate: '200-01-01',
+        }
       end
-      context "status code is created" do
+      before { post(:create, params: user_params) }
+      context 'status code is created' do
         subject { response }
         it { is_expected.to have_http_status(:created) }
       end
-      context "validate response body" do
+      context 'validate response body' do
         subject { payload_test }
         it { is_expected.to include(:id, :email, :birthdate) }
       end
     end
+
+    context 'bad request' do
+      let(:user_params) { { email: '', password: '12345', birthdate: '200-01-01' } }
+
+      before { post(:create, params: user_params) }
+      context 'status code is bad_request' do
+        subject { response }
+        it { is_expected.to have_http_status(:bad_request) }
+      end
+      context 'error message in the payload' do
+        subject { payload_test }
+        it { is_expected.to eq({error: 'Invalid user'}) }
+      end
+    end
+
   end
 end
