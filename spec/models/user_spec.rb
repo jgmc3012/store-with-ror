@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   describe 'Validate user model' do
-    subject { build(:user) }
+    subject { build(:owner) }
     describe 'that the field is present' do
       it { should validate_presence_of(:email) }
       it { should validate_presence_of(:birthdate) }
@@ -28,5 +28,8 @@ RSpec.describe User, type: :model do
       end
     end
 
+    it 'i can create only employee or owner type users' do
+      should validate_inclusion_of(:type).in_array(%w[Employee Owner])
+    end
   end
 end
