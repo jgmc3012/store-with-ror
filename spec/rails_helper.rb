@@ -46,7 +46,10 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   # Include helpers ->
   config.include ApplicationHelper
-  
+
+  # Render views json ->
+  config.render_views 
+
   # Database cleaner set up -> https://github.com/DatabaseCleaner/database_cleaner#rspec-example
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

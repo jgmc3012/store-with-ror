@@ -2,12 +2,12 @@ module V1
   class UsersController < ApplicationController
     def create
       begin
-        user = Owner.create!(user_params)
+        @user = Owner.create!(user_params)
       rescue ActiveRecord::RecordInvalid, ActionController::ParameterMissing
         render json: { error: 'Invalid user' }, status: :bad_request
         return
       end
-      render json: user, status: :created
+      render :show, status: :created
     end
 
     private
