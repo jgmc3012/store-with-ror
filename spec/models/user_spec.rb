@@ -14,8 +14,11 @@ RSpec.describe User, type: :model do
       it 'should be unique' do
         should validate_uniqueness_of(:email)
       end
-      it 'is a valid format' do
+      it 'is a invalid format' do
         should_not allow_value('invalid_email').for(:email)
+      end
+      it 'is a valid format' do
+        should allow_value('millan@asistensi.com').for(:email)
       end
     end
 
