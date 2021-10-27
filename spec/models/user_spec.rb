@@ -31,5 +31,9 @@ RSpec.describe User, type: :model do
     it 'i can create only employee or owner type users' do
       should validate_inclusion_of(:type).in_array(%w[Employee Owner])
     end
+
+    it 'validate that exists relation with store' do
+      should belong_to(:store)
+    end
   end
 end

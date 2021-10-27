@@ -6,6 +6,11 @@ RSpec.describe Store, type: :model do
     it 'Validate if the name exists' do
       should validate_presence_of(:name)
     end
-  end
-  
+    it 'Validate if exists relation with onwer' do
+      should have_one(:owner)
+    end
+    it 'Validate if exists relation with employees' do
+      should have_many(:employees)
+    end
+  end  
 end
