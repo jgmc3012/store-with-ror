@@ -12,18 +12,13 @@ module V1
 
     def login
       @user = Owner.find_by(email: params.require(:email))
-      if @user.nil?
-        render json: { error: 'Invalid email or password' }, status: :bad_request
-        return
-      end
 
-      if @user.authenticate(params.require(:password))
+      if @user.present? && @user.authenticate(params.require(:password))
         render :show, status: :ok, formats:[:json]
         return
       end
 
-      render json: { error: 'Invalid email or password' }, status: :bad_request
-
+      render json: { error: I18n.t('user.bad_credentials') }, status: :bad_request
     end
 
     private
