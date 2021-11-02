@@ -10,6 +10,22 @@ module V1
       render :show, status: :created, formats:[:json]
     end
 
+    def login
+      @user = Owner.find_by(email: params.require(:email))
+      if @user.nil?
+        render json: { error: 'Invalid email or password' }, status: :bad_request
+        return
+      end
+
+      if @user.authenticate(params.require(:password))
+        render :show, status: :ok, formats:[:json]
+        return
+      end
+
+      render json: { error: 'Invalid email or password' }, status: :bad_request
+
+    end
+
     private
 
     def user_params
