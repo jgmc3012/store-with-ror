@@ -7,6 +7,9 @@ module V1
         render json: { error: 'Invalid user' }, status: :bad_request
         return
       end
+
+      @token = @user.tokens.create!
+
       render :show, status: :created, formats:[:json]
     end
 
