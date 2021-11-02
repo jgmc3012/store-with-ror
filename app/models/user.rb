@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_password # adds a password field and a password_digest field to the User model
   belongs_to :store
+  has_many :tokens
 
   # Nested Attributes
   accepts_nested_attributes_for :store
