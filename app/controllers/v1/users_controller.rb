@@ -17,6 +17,7 @@ module V1
       @user = Owner.find_by(email: params.require(:email))
 
       if @user.present? && @user.authenticate(params.require(:password))
+        @token = @user.tokens.create!
         render :show, status: :ok, formats:[:json]
         return
       end

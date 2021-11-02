@@ -18,7 +18,12 @@ RSpec.describe V1::UsersController, type: :controller do
     
             context "Body of response" do
                 subject { payload_test }
-                it { is_expected.to include(:id, :email, :birthdate, :store) }
+                it { is_expected.to include(:id, :email, :birthdate, :store, :token) }
+            end
+
+            context 'response with correct token values' do
+                subject { payload_test[:token] }
+                it { is_expected.to include(:expires_at, :token) }
             end
 
         end
