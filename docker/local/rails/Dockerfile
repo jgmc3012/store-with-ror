@@ -13,5 +13,4 @@ RUN bundle install
 
 EXPOSE 3000
 
-ENTRYPOINT [ "./docker/local/rails/entrypoint.sh" ]
 CMD [ "./docker/local/rails/start.sh" ]

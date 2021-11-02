@@ -7,6 +7,9 @@ RSpec.describe V1::UsersController, type: :controller do
           email: Faker::Internet.email,
           password: Faker::Internet.password,
           birthdate: '200-01-01',
+          store_attributes: {
+            name: Faker::Games::Zelda.game,
+          }
         }
       end
       before { post(:create, params: user_params) }
@@ -16,7 +19,11 @@ RSpec.describe V1::UsersController, type: :controller do
       end
       context 'validate response body' do
         subject { payload_test }
-        it { is_expected.to include(:id, :email, :birthdate) }
+        it { is_expected.to include(:id, :email, :birthdate, :store) }
+      end
+      context 'response with correct store values' do
+        subject { payload_test[:store] }
+        it { is_expected.to include(:id, :name, :created_at, :updated_at) }
       end
     end
 

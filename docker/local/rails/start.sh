@@ -2,6 +2,8 @@
 
 set -e
 
+rake db:create
+
 if [ -f /app/tmp/pids/server.pid ]; then
     rm /app/tmp/pids/server.pid
 fi
