@@ -19,12 +19,18 @@ RSpec.describe V1::UsersController, type: :controller do
       end
       context 'validate response body' do
         subject { payload_test }
-        it { is_expected.to include(:id, :email, :birthdate, :store) }
+        it { is_expected.to include(:id, :email, :birthdate, :store, :token) }
       end
       context 'response with correct store values' do
         subject { payload_test[:store] }
         it { is_expected.to include(:id, :name, :created_at, :updated_at) }
       end
+
+      context 'response with correct token values' do
+        subject { payload_test[:token] }
+        it { is_expected.to include(:expires_at, :token) }
+      end
+      
     end
 
     context 'bad request' do
