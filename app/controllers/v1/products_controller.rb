@@ -1,5 +1,3 @@
-module V1
-    class ProductsController < ApplicationController
-        def create; end
-    end
+class V1::ProductsController < ApplicationController
+    def create; end
 end
