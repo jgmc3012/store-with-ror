@@ -7,10 +7,9 @@ RSpec.describe V1::ProductsController, type: :controller do
         let(:headers) { { 'Authorization' => "Bearer #{token.token}" } }
         let(:product) { 
             {
-                store_id: user.store.id,
                 name: Faker::Book.title,
                 description: Faker::Lorem.sentence(word_count: 50),
-                price: rand(1..1000),
+                price: rand(1..1000)
             }
         }
         context 'Register success' do
@@ -30,7 +29,7 @@ RSpec.describe V1::ProductsController, type: :controller do
 
         context 'Register Failed' do
             before do
-                product.name = ''
+                product[:name] = ''
                 request.headers.merge! headers
                 post :create, params: product
             end
@@ -40,7 +39,7 @@ RSpec.describe V1::ProductsController, type: :controller do
             end
             context 'Estructure when exists any error' do
                 subject { payload_test }
-                it { is_expected.to include(:error) }
+                it { is_expected.to include(:errors) }
             end
         end
         
