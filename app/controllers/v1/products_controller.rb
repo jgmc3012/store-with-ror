@@ -31,7 +31,12 @@ class V1::ProductsController < ApplicationController
         head :no_content
     end
 
-    def restore; end
+    def restore
+        @product = @store.products.only_deleted.find_by(id: params[:product_id])
+        return unless @product
+        Product.restore @product.id
+        render :show, status: :ok, formats: [:json]
+    end
 
     private
     def product_params
