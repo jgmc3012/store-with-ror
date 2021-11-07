@@ -10,7 +10,7 @@ RSpec.describe V1::ProductsController, type: :controller do
     context 'update success' do
       before do
         request.headers.merge!(headers)
-        put :update, format: :json, params: { id: product.id, product: { name: 'new name' } }
+        put :update, format: :json, params: { id: product.id, name: 'new name' }
       end
       context 'response with status 200' do
         subject { response } 
@@ -25,7 +25,7 @@ RSpec.describe V1::ProductsController, type: :controller do
     context 'update fail' do
       before do
         request.headers.merge!(headers)
-        put :update, format: :json, params: { id: product.id, product: { name: nil } }
+        put :update, format: :json, params: { id: product.id, name: "" }
       end
       context 'response with status 400' do
         subject { response } 
@@ -39,7 +39,7 @@ RSpec.describe V1::ProductsController, type: :controller do
 
     context 'update without token' do
       before do
-        put :update, format: :json, params: { id: product.id, product: { name: 'new name' } }
+        put :update, format: :json, params: { id: product.id, name: 'new name' }
       end
       context 'response with status 401' do
         subject { response } 

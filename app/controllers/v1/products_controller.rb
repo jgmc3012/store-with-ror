@@ -1,6 +1,7 @@
 class V1::ProductsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_store
+    before_action :set_product, only: [:update]
 
     def create
         @product = @store.products.new(product_params)
@@ -12,7 +13,13 @@ class V1::ProductsController < ApplicationController
         end
     end
 
-    def update; end
+    def update
+        if @product.update(product_params)
+            render :show, status: :ok, formats: [:json]
+        else
+            render json: { errors: @product.errors.messages }, status: :bad_request
+        end
+    end
 
     private
     def product_params
@@ -21,5 +28,10 @@ class V1::ProductsController < ApplicationController
 
     def set_store
         @store = @current_user.store
+    end
+
+    def set_product
+        @product = @store.products.find(params[:id])
+        head :not_found unless @product
     end
 end
