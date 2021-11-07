@@ -12,6 +12,8 @@ class V1::ProductsController < ApplicationController
         end
     end
 
+    def update; end
+
     private
     def product_params
         params.permit(:name, :price, :description)
