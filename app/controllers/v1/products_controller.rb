@@ -31,6 +31,8 @@ class V1::ProductsController < ApplicationController
         head :no_content
     end
 
+    def restore; end
+
     private
     def product_params
         params.permit(:name, :price, :description)

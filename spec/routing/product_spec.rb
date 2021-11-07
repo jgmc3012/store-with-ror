@@ -30,5 +30,13 @@ describe 'Products paths' do
       action: 'destroy',
       id: '1'
     )
-  end 
+  end
+  it 'Restore Products' do
+    expect(post: '/v1/products/1/restore').to route_to(
+      format: 'json',
+      controller: 'v1/products',
+      action: 'restore',
+      product_id: '1'
+    )
+  end
 end
