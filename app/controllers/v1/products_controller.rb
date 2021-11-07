@@ -21,7 +21,10 @@ class V1::ProductsController < ApplicationController
         end
     end
 
-    def index; end
+    def index
+        @products = @store.products.all
+        render :index, status: :ok, formats: [:json]
+    end
 
     private
     def product_params

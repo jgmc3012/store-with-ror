@@ -1,16 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe V1::ProductsController, type: :controller do
-  describe 'index users' do
+  describe 'index products' do
     let(:user) { create(:owner) }
     let(:token) { create(:token, user: user) }
     let(:headers) { { 'Authorization' => "Bearer #{token.token}" } }
-    let(:products) { create_list(:product, 5) }
+    let!(:products) { create_list(:product, 5, store: user.store) }
 
     context "get a product list successfull" do
       before do
         request.headers.merge!(headers)
-        get :index, headers: headers
+        get :index
       end
       
       context "status 200 OK" do
@@ -19,8 +19,8 @@ RSpec.describe V1::ProductsController, type: :controller do
       end
 
       context "response body" do
-        subject { payload_test }
-        it { is_expected.to include(:products) }
+        subject { payload_test.count }
+        it { is_expected.to be 5 }
       end
     end
 
