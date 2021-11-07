@@ -47,6 +47,6 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'paranoia', '~> 2.4'
+gem 'paranoia', '~> 2.4' # Soft delete gem -> https://github.com/rubysherpas/paranoia
 gem 'rails-i18n', '~> 6.0'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
