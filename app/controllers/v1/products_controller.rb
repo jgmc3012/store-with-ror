@@ -1,7 +1,7 @@
 class V1::ProductsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_store
-    before_action :set_product, only: [:update]
+    before_action :set_product, only: %i[update destroy]
 
     def create
         @product = @store.products.new(product_params)
@@ -24,6 +24,11 @@ class V1::ProductsController < ApplicationController
     def index
         @products = @store.products.all
         render :index, status: :ok, formats: [:json]
+    end
+
+    def destroy
+        @product.destroy
+        head :no_content
     end
 
     private
